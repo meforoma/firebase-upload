@@ -76,10 +76,14 @@ function App() {
   const uploadUI = () => (
     <div className="upload-container">
       <img
-        className="upload-area__img"
+        className={classNames(
+          'upload-area__img',
+          { 'upload-area__img--dimmed': stage === 'uploading' },
+        )}
         src={fileLocalUrl}
         alt="file-local-url"
       />
+
       {stage === 'uploading' && (
         <progress
           className="progress-center"
