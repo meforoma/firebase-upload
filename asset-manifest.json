@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/firebase-upload/static/css/main.a71e4f78.chunk.css",
-    "main.js": "/firebase-upload/static/js/main.c6d7b1da.chunk.js",
-    "main.js.map": "/firebase-upload/static/js/main.c6d7b1da.chunk.js.map",
+    "main.css": "/firebase-upload/static/css/main.e4945968.chunk.css",
+    "main.js": "/firebase-upload/static/js/main.bbe1761e.chunk.js",
+    "main.js.map": "/firebase-upload/static/js/main.bbe1761e.chunk.js.map",
     "runtime-main.js": "/firebase-upload/static/js/runtime-main.596f08a5.js",
     "runtime-main.js.map": "/firebase-upload/static/js/runtime-main.596f08a5.js.map",
-    "static/js/2.19f2900b.chunk.js": "/firebase-upload/static/js/2.19f2900b.chunk.js",
-    "static/js/2.19f2900b.chunk.js.map": "/firebase-upload/static/js/2.19f2900b.chunk.js.map",
+    "static/js/2.7e800f8e.chunk.js": "/firebase-upload/static/js/2.7e800f8e.chunk.js",
+    "static/js/2.7e800f8e.chunk.js.map": "/firebase-upload/static/js/2.7e800f8e.chunk.js.map",
     "index.html": "/firebase-upload/index.html",
-    "static/css/main.a71e4f78.chunk.css.map": "/firebase-upload/static/css/main.a71e4f78.chunk.css.map",
-    "static/js/2.19f2900b.chunk.js.LICENSE.txt": "/firebase-upload/static/js/2.19f2900b.chunk.js.LICENSE.txt",
+    "static/css/main.e4945968.chunk.css.map": "/firebase-upload/static/css/main.e4945968.chunk.css.map",
+    "static/js/2.7e800f8e.chunk.js.LICENSE.txt": "/firebase-upload/static/js/2.7e800f8e.chunk.js.LICENSE.txt",
     "static/media/icon-success.bf7f9ad2.svg": "/firebase-upload/static/media/icon-success.bf7f9ad2.svg",
     "static/media/icon-upload.a7df5873.svg": "/firebase-upload/static/media/icon-upload.a7df5873.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.596f08a5.js",
-    "static/js/2.19f2900b.chunk.js",
-    "static/css/main.a71e4f78.chunk.css",
-    "static/js/main.c6d7b1da.chunk.js"
+    "static/js/2.7e800f8e.chunk.js",
+    "static/css/main.e4945968.chunk.css",
+    "static/js/main.bbe1761e.chunk.js"
   ]
 }
