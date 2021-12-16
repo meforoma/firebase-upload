@@ -12,7 +12,7 @@ import iconSuccess from './icons/icon-success.svg';
 
 function App() {
   const [fileError, setFileError] = useState<boolean>(false);
-  const [fileLocalUrl, setFileLocalUrl] = useState<string>();
+  const [fileLocalUrl, setFileLocalUrl] = useState<string | undefined>('');
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [stage, setStage] = useState<'start' | 'uploading' | 'uploaded'>('start');
 
@@ -74,16 +74,22 @@ function App() {
   };
 
   const uploadUI = () => (
-    <>
-      {stage === 'uploading' && (
-        <span>{`Uploading: ${uploadProgress}%`}</span>
-      )}
+    <div className="upload-container">
       <img
         className="upload-area__img"
         src={fileLocalUrl}
         alt="file-local-url"
       />
-    </>
+      {stage === 'uploading' && (
+        <progress
+          className="progress-center"
+          max="100"
+          value={uploadProgress}
+        >
+          {uploadProgress}
+        </progress>
+      )}
+    </div>
   );
 
   const bottomText = () => {
