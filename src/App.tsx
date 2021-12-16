@@ -130,8 +130,7 @@ function App() {
       </div>
 
       {/* Upload area */}
-      <label
-        htmlFor="fileInput"
+      <div
         className={
           classNames(
             'upload-area',
@@ -142,7 +141,7 @@ function App() {
         {stage === 'start'
           ? <StartUI onFileChange={onFileChange} />
           : uploadUI()}
-      </label>
+      </div>
 
       {/* Text bottom */}
       <div className={classNames(

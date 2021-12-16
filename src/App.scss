@@ -77,13 +77,13 @@ body {
 }
 
 .upload-area {
+  position: relative;
   width: 280px;
   height: 362px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  cursor: pointer;
 
   background: #FAFAFA;
   border: 1px dashed rgba(0, 0, 0, 0.5);
@@ -100,7 +100,6 @@ body {
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    cursor: pointer;
   }
 
   &__img {
@@ -116,9 +115,11 @@ body {
 }
 
 #fileInput {
+  position: absolute;
   opacity: 0;
-  width: 0;
-  height: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
 
 .upload-container {
