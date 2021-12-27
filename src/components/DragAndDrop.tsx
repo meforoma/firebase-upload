@@ -1,20 +1,48 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { Stage } from '../App';
+import { ref, uploadBytesResumable } from 'firebase/storage';
+import { fireStorage } from '../firebase';
+
 import iconUpload from '../icons/icon-upload.svg';
 
 type Props = {
   setFileLocalUrl: Dispatch<SetStateAction<string | undefined>>;
   setFileError: Dispatch<SetStateAction<boolean>>;
   setStage: Dispatch<SetStateAction<Stage>>;
-  uploadFile: (userFile: File) => void;
+  setUploadProgress: Dispatch<SetStateAction<number>>;
 };
 
 export const DragAndDrop = ({
   setFileLocalUrl,
   setFileError,
   setStage,
-  uploadFile,
+  setUploadProgress,
 }: Props): JSX.Element => {
+  const uploadFile = (userFile: File) => {
+    if (!userFile) return;
+
+    const storageRef = ref(fireStorage, `/images/${userFile.name}`);
+    const uploadAction = uploadBytesResumable(storageRef, userFile);
+
+    uploadAction.on(
+      'state_changed',
+
+      // progress logic
+      (snapshot) => {
+        const { bytesTransferred, totalBytes } = snapshot;
+        const progressCalc = Math.round((bytesTransferred / totalBytes) * 100);
+
+        setUploadProgress(progressCalc);
+      },
+
+      // error logic
+      (error) => console.log(error),
+
+      // success logic
+      () => setStage(Stage.uploaded)
+    );
+  };
+
   const handlePreview = (userFile: File) => {
     const reader = new FileReader();
     reader.readAsDataURL(userFile);
