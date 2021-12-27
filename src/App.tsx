@@ -10,11 +10,17 @@ import { StartUI } from './components/StartUI';
 import { UploadUI } from './components/UploadUI';
 import iconSuccess from './icons/icon-success.svg';
 
+export enum Stage {
+  start = 'start',
+  uploading = 'uploading',
+  uploaded = 'uploaded',
+}
+
 export const App = (): JSX.Element => {
   const [fileError, setFileError] = useState<boolean>(false);
   const [fileLocalUrl, setFileLocalUrl] = useState<string | undefined>('');
   const [uploadProgress, setUploadProgress] = useState<number>(0);
-  const [stage, setStage] = useState<'start' | 'uploading' | 'uploaded'>('start');
+  const [stage, setStage] = useState<Stage>(Stage.start);
 
   const uploadFile = (userFile: File) => {
     if (!userFile) return;
@@ -28,9 +34,7 @@ export const App = (): JSX.Element => {
       // progress logic
       (snapshot) => {
         const { bytesTransferred, totalBytes } = snapshot;
-        const progressCalc = Math.round(
-          (bytesTransferred / totalBytes) * 100
-        );
+        const progressCalc = Math.round((bytesTransferred / totalBytes) * 100);
 
         setUploadProgress(progressCalc);
       },
@@ -39,7 +43,7 @@ export const App = (): JSX.Element => {
       (error) => console.log(error),
 
       // success logic
-      () => setStage('uploaded')
+      () => setStage(Stage.uploaded)
     );
   };
 
@@ -55,25 +59,20 @@ export const App = (): JSX.Element => {
   };
 
   const bottomText = () => (
-    <div className={classNames(
-      'text--light',
-      'text--small',
-      { 'text--error': fileError }
-    )}
+    <div
+      className={classNames('text--light', 'text--small', {
+        'text--error': fileError,
+      })}
     >
       {bottomWording()}
     </div>
   );
 
   const topWording = () => {
-    if (stage === 'uploaded') {
+    if (stage === Stage.uploaded) {
       return (
         <div className="title--success">
-          <img
-            src={iconSuccess}
-            alt="icon-success"
-            className="icon-success"
-          />
+          <img src={iconSuccess} alt="icon-success" className="icon-success" />
           Success
         </div>
       );
@@ -82,11 +81,7 @@ export const App = (): JSX.Element => {
     return 'Upload Image';
   };
 
-  const topText = () => (
-    <div className="text--big">
-      {topWording()}
-    </div>
-  );
+  const topText = () => <div className="text--big">{topWording()}</div>;
 
   return (
     <div className="main-container">
@@ -94,27 +89,24 @@ export const App = (): JSX.Element => {
 
       {/* Upload area */}
       <div
-        className={
-          classNames(
-            'upload-area',
-            { 'upload-area--error': fileError }
-          )
-        }
+        className={classNames('upload-area', {
+          'upload-area--error': fileError,
+        })}
       >
-        {stage === 'start'
-          ? (
-            <StartUI
-              setFileLocalUrl={setFileLocalUrl}
-              setFileError={setFileError}
-              setStage={setStage}
-              uploadFile={uploadFile}
-            />) : (
-            <UploadUI
-              stage={stage}
-              fileLocalUrl={fileLocalUrl}
-              uploadProgress={uploadProgress}
-            />
-          )}
+        {stage === Stage.start ? (
+          <StartUI
+            setFileLocalUrl={setFileLocalUrl}
+            setFileError={setFileError}
+            setStage={setStage}
+            uploadFile={uploadFile}
+          />
+        ) : (
+          <UploadUI
+            stage={stage}
+            fileLocalUrl={fileLocalUrl}
+            uploadProgress={uploadProgress}
+          />
+        )}
       </div>
 
       {bottomText()}

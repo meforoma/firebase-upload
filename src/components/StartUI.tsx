@@ -1,10 +1,11 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { Stage } from '../App';
 import iconUpload from '../icons/icon-upload.svg';
 
 type Props = {
   setFileLocalUrl: Dispatch<SetStateAction<string | undefined>>,
   setFileError: Dispatch<SetStateAction<boolean>>,
-  setStage: Dispatch<SetStateAction<'start' | 'uploading' | 'uploaded'>>,
+  setStage: Dispatch<SetStateAction<Stage>>,
   uploadFile: (userFile: File) => void,
 };
 
@@ -23,7 +24,7 @@ export const StartUI = ({
 
   const onFileChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { files } = event.target;
-    const maxSize = 5 * 1e+6;
+    const maxSize = 5_000_000;
 
     if (files?.length) {
       const isImage = files[0].type.includes('image');
@@ -31,7 +32,7 @@ export const StartUI = ({
 
       if (isImage && sizeFits) {
         setFileError(false);
-        setStage('uploading');
+        setStage(Stage.uploading);
         handlePreview(files[0]);
         uploadFile(files[0]);
       }

@@ -1,7 +1,8 @@
 import classNames from 'classnames';
+import { Stage } from '../App';
 
 type Props = {
-  stage: 'start' | 'uploading' | 'uploaded',
+  stage: Stage,
   fileLocalUrl: string | undefined,
   uploadProgress: number,
 };
@@ -12,14 +13,14 @@ export const UploadUI = ({ stage, fileLocalUrl, uploadProgress }: Props): JSX.El
       <img
         className={classNames(
           'upload-area__img',
-          { 'upload-area__img--dimmed': stage === 'uploading' },
+          { 'upload-area__img--dimmed': stage === Stage.uploading },
         )}
         src={fileLocalUrl}
         alt="file-local-url"
       />
     )}
 
-    {stage === 'uploading' && (
+    {stage === Stage.uploading && (
       <progress
         className="progress-center"
         max="100"
