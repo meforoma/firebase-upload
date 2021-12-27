@@ -47,41 +47,36 @@ export const App = (): JSX.Element => {
     );
   };
 
-  const bottomWording = () => {
-    switch (stage) {
-      case 'uploading':
-        return "Don't close this window while the image uploads";
-      case 'uploaded':
-        return 'Image uploaded successfully';
-      default:
-        return 'Upload your image file, up to 5mb in size';
-    }
-  };
-
   const bottomText = () => (
     <div
       className={classNames('text--light', 'text--small', {
         'text--error': fileError,
       })}
     >
-      {bottomWording()}
+      {
+        (stage === Stage.uploading && "Don't close this window while the image uploads") ||
+        (stage === Stage.uploaded && 'Image uploaded successfully') ||
+        (stage === Stage.start && 'Upload your image file, up to 5mb in size')
+      }
     </div>
   );
 
-  const topWording = () => {
-    if (stage === Stage.uploaded) {
-      return (
+  const topText = () => (
+    <div className="text--big">
+      {stage === Stage.uploaded ? (
         <div className="title--success">
-          <img src={iconSuccess} alt="icon-success" className="icon-success" />
+          <img
+            src={iconSuccess}
+            alt="icon-success"
+            className="icon-success"
+          />
           Success
         </div>
-      );
-    }
-
-    return 'Upload Image';
-  };
-
-  const topText = () => <div className="text--big">{topWording()}</div>;
+      ) : (
+        'Upload Image'
+      )}
+    </div>
+  );
 
   return (
     <div className="main-container">
