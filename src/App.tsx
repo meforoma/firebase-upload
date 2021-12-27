@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import './App.scss';
 
-import { DragAndDrop, Uploading } from './components';
+import { DragAndDrop, Uploading, Input } from './components';
 import iconSuccess from './icons/icon-success.svg';
 
 export enum Stage {
@@ -16,7 +16,7 @@ export const App = (): JSX.Element => {
   const [fileError, setFileError] = useState<boolean>(false);
   const [fileLocalUrl, setFileLocalUrl] = useState<string | undefined>('');
   const [uploadProgress, setUploadProgress] = useState<number>(0);
-  const [stage, setStage] = useState<Stage>(Stage.start);
+  const [stage, setStage] = useState<Stage>(Stage.uploaded);
 
   const bottomText = () => (
     <div
@@ -24,10 +24,16 @@ export const App = (): JSX.Element => {
         'text--error': fileError,
       })}
     >
-      {(stage === Stage.uploading &&
-        "Don't close this window while the image uploads") ||
-        (stage === Stage.uploaded && 'Image uploaded successfully') ||
-        (stage === Stage.start && 'Upload your image file, up to 5mb in size')}
+      {(stage === Stage.start && 'Upload your image file, up to 5mb in size') ||
+        (stage === Stage.uploading &&
+          "Don't close this window while the image uploads") ||
+        (stage === Stage.uploaded && (
+          <>
+            Image uploaded successfully.
+            <br />
+            Upload another one if needed
+          </>
+        ))}
     </div>
   );
 
@@ -55,17 +61,21 @@ export const App = (): JSX.Element => {
         })}
       >
         {stage === Stage.start ? (
-          <DragAndDrop
-            setFileLocalUrl={setFileLocalUrl}
-            setFileError={setFileError}
-            setStage={setStage}
-            setUploadProgress={setUploadProgress}
-          />
+          <DragAndDrop />
         ) : (
           <Uploading
             stage={stage}
             fileLocalUrl={fileLocalUrl}
             uploadProgress={uploadProgress}
+          />
+        )}
+
+        {stage !== Stage.uploading && (
+          <Input
+            setFileLocalUrl={setFileLocalUrl}
+            setFileError={setFileError}
+            setStage={setStage}
+            setUploadProgress={setUploadProgress}
           />
         )}
       </div>
