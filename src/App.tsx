@@ -88,23 +88,6 @@ export const App = (): JSX.Element => {
     </div>
   );
 
-  const StartUI_withProps = (
-    <StartUI
-      setFileLocalUrl={setFileLocalUrl}
-      setFileError={setFileError}
-      setStage={setStage}
-      uploadFile={uploadFile}
-    />
-  )
-
-  const UploadUI_withProps = (
-    <UploadUI
-      stage={stage}
-      fileLocalUrl={fileLocalUrl}
-      uploadProgress={uploadProgress}
-    />
-  )
-
   return (
     <div className="main-container">
       {topText()}
@@ -119,8 +102,19 @@ export const App = (): JSX.Element => {
         }
       >
         {stage === 'start'
-          ? StartUI_withProps
-          : UploadUI_withProps}
+          ? (
+            <StartUI
+              setFileLocalUrl={setFileLocalUrl}
+              setFileError={setFileError}
+              setStage={setStage}
+              uploadFile={uploadFile}
+            />) : (
+            <UploadUI
+              stage={stage}
+              fileLocalUrl={fileLocalUrl}
+              uploadProgress={uploadProgress}
+            />
+          )}
       </div>
 
       {bottomText()}
