@@ -6,8 +6,7 @@ import './App.scss';
 import { ref, uploadBytesResumable } from 'firebase/storage';
 import { fireStorage } from './firebase';
 
-import { StartUI } from './components/StartUI';
-import { UploadUI } from './components/UploadUI';
+import { DragAndDrop, Uploading } from './components';
 import iconSuccess from './icons/icon-success.svg';
 
 export enum Stage {
@@ -89,14 +88,14 @@ export const App = (): JSX.Element => {
         })}
       >
         {stage === Stage.start ? (
-          <StartUI
+          <DragAndDrop
             setFileLocalUrl={setFileLocalUrl}
             setFileError={setFileError}
             setStage={setStage}
             uploadFile={uploadFile}
           />
         ) : (
-          <UploadUI
+          <Uploading
             stage={stage}
             fileLocalUrl={fileLocalUrl}
             uploadProgress={uploadProgress}
