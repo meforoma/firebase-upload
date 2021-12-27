@@ -73,7 +73,7 @@ export const Input = ({
 
   return (
     <input
-      id="fileInput"
+      id='fileInput'
       type="file"
       accept="image/*"
       onChange={onFileChange}

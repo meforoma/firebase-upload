@@ -1,8 +1,10 @@
-import classNames from 'classnames';
-
-import { useState } from 'react';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+import { styles } from './AppStyles'
 import './App.scss';
 
+import { Fragment, useState } from 'react';
 import { DragAndDrop, Uploading, Input } from './components';
 import iconSuccess from './icons/icon-success.svg';
 
@@ -16,32 +18,36 @@ export const App = (): JSX.Element => {
   const [fileError, setFileError] = useState<boolean>(false);
   const [fileLocalUrl, setFileLocalUrl] = useState<string | undefined>('');
   const [uploadProgress, setUploadProgress] = useState<number>(0);
-  const [stage, setStage] = useState<Stage>(Stage.uploaded);
+  const [stage, setStage] = useState<Stage>(Stage.start);
 
   const bottomText = () => (
-    <div
-      className={classNames('text--light', 'text--small', {
-        'text--error': fileError,
-      })}
+    <div css={[
+      styles.text.light,
+      styles.text.small,
+      fileError && styles.text.error]}
     >
-      {(stage === Stage.start && 'Upload your image file, up to 5mb in size') ||
+      {((stage === Stage.start || fileError) && 'Upload your image file, up to 5mb in size') ||
         (stage === Stage.uploading &&
           "Don't close this window while the image uploads") ||
         (stage === Stage.uploaded && (
-          <>
+          <Fragment>
             Image uploaded successfully.
             <br />
             Upload another one if needed
-          </>
+          </Fragment>
         ))}
     </div>
   );
 
   const topText = () => (
-    <div className="text--big">
+    <div css={styles.text.big}>
       {stage === Stage.uploaded ? (
-        <div className="title--success">
-          <img src={iconSuccess} alt="icon-success" className="icon-success" />
+        <div css={styles.text.titleSuccess}>
+          <img
+            src={iconSuccess}
+            alt="icon-success"
+            css={styles.icon.success}
+          />
           Success
         </div>
       ) : (
@@ -51,14 +57,12 @@ export const App = (): JSX.Element => {
   );
 
   return (
-    <div className="main-container">
+    <div css={styles.main.container}>
       {topText()}
 
       {/* Upload area */}
-      <div
-        className={classNames('upload-area', {
-          'upload-area--error': fileError,
-        })}
+      <div css={[styles.upload.area,
+      fileError && styles.upload.error]}
       >
         {stage === Stage.start ? (
           <DragAndDrop />
